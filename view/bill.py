@@ -10,8 +10,8 @@ win.geometry("500x300")
 # date = ipysheet.date(days=['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
 # ipysheet.cell(0,0,date)
 def them():
-    data = pd.ExcelFile("bill.xlsx")
-    df1 = pd.read_excel(data)
+    # data = pd.ExcelFile("bill.xlsx")
+    df1 = pd.read_excel('bill.xlsx')
     df2 = df1.drop(df1.filter(regex='Unnamed'), axis=1)
     ma = ent1.get()
     ngay = ent2.get()
@@ -20,8 +20,8 @@ def them():
 
     # data1 = {'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]}
     df1 = pd.DataFrame({'Mã HD':[ma], 'Ngày lập HD':[ngay], 'Nhân viên':[nhanvien], 'Khách hàng':[khachang]})
-    writer = pd.ExcelWriter('bill.xlsx')
-    df1.to_excel(writer, sheet_name="Sheet1", index=True)
+    # writer = pd.ExcelWriter('bill.xlsx')
+    df1.to_excel('bill.xlsx', sheet_name="Sheet1", index=False)
     for  row in df1.iterrows():
         sho.insert(END, row)
 def sua():
@@ -40,19 +40,21 @@ def sua():
     ent3.insert(0, df.at[nhanvien, 'Nhân viên'])
     ent4.delete(0,END)
     ent4.insert(0, df.at[khachang, 'Khách hàng'])
-    
+    df.to_excel('bill.xlsx')
     def save():
         global df
         df = pd.read_excel('bill.xlsx')
         df.at[ma, 'Mã HD'] == ma
-        writer = pd.ExcelFile('bill.xlsx')
-        df.to_excel(writer, sheet_name='Sheet1', index=False)
-        writer.save()
+        # writer = pd.ExcelFile('bill.xlsx')
+        df.to_excel('bill.xlsx', sheet_name='Sheet1', index=False)
+        # writer.save()
     for index, row in df.iterrows():
         sho.insert(index, row)
 def xoa():
+    df = pd.read_excel('bill.xlsx')
     ma = ent1.get()
     df[df['Mã HD']] != ma
+    df.drop(df.filter(regex='Mã hóa đơn'), axis=1)
     df.to_excel('bill.xlsx', index=False)
     for index, row in df.iterrows():
         sho.insert(index, row)

@@ -8,8 +8,8 @@ win.geometry("800x300")
 # calendar = Calendar(win)
 canvas = Canvas(win,width=300, height=200)
 def them():
-    data = pd.ExcelFile("customer.xlsx")
-    df1 = pd.read_excel(data)
+    # data = pd.ExcelFile("customer.xlsx")
+    df1 = pd.read_excel('customer.xlsx')
     df2 = df1.drop(df1.filter(regex='Unnamed'), axis=1)
     ma = ent1.get()
     ten = ent2.get()
@@ -17,9 +17,9 @@ def them():
     diachi = ent4.get()
     dienthoai = ent5.get()
     # data1 = {'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]}
-    df1 = pd.DataFrame({'Mã KH':[ma], 'Tên điện thoai':[ten], 'Ngày sinh':[bir], 'Gioi tinh':["Nam"], 'Địa chỉ':[diachi], 'Điện thoai':[dienthoai]})
-    writer = pd.ExcelWriter('customer.xlsx')
-    df1.to_excel(writer, sheet_name="Sheet1", index=True)
+    df1 = pd.DataFrame({'Mã KH':[ma], 'Tên khách hang':[ten], 'Ngày sinh':[bir], 'Gioi tinh':["Nam"], 'Địa chỉ':[diachi], 'Điện thoai':[dienthoai]})
+    # writer = pd.ExcelWriter('customer.xlsx')
+    df1.to_excel('customer.xlsx', sheet_name="Sheet1", index=False)
     for  row in df1.iterrows():
         sho.insert(END, row)
 def sua():
@@ -44,14 +44,16 @@ def sua():
         global df
         df = pd.read_excel('customer.xlsx')
         df.at[ma, 'Mã khách hàng'] == ma
-        writer = pd.ExcelFile('customer.xlsx')
-        df.to_excel(writer, sheet_name='Sheet1', index=False)
-        writer.save()
+        # writer = pd.ExcelFile('customer.xlsx')
+        df.to_excel('customer.xlsx', sheet_name='Sheet1', index=False)
+        # writer.save()
     for index, row in df.iterrows():
         sho.insert(index, row)
 def xoa():
+    df = pd.read_excel('customer.xlsx')
     ma = ent1.get()
     df[df['Mã KH']] != ma
+    df.drop(df.filter(regex='Mã KH'), axis=1)
     df.to_excel('customer.xlsx', index=False)
     for index, row in df.iterrows():
         sho.insert(index, row)

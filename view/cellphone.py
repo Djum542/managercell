@@ -8,8 +8,8 @@ win.geometry("600x400")
 win.title("Profilecellphone")
 
 def them():
-    data = pd.ExcelFile("cellphone.xlsx")
-    df1 = pd.read_excel(data)
+
+    df1 = pd.read_excel('cellphone.xlsx')
     df2 = df1.drop(df1.filter(regex='Unnamed'), axis=1)
     hang = nhap1.get()
     ma = nhap2.get()
@@ -18,8 +18,8 @@ def them():
     diachi = chon1.get()
     # data1 = {'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]}
     df1 = pd.DataFrame({'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]})
-    writer = pd.ExcelWriter('cellphone.xlsx')
-    df1.to_excel(writer, sheet_name="Sheet1", index=True)
+
+    df1.to_excel('cellphone.xlsx', sheet_name="Sheet1", index=False)
     for  row in df1.iterrows():
         ds.insert(END, row)
 def sua():
@@ -44,14 +44,16 @@ def sua():
         global df
         df = pd.read_excel('cellphone.xlsx')
         df.at[ma, 'Mã điện thoại'] == ma
-        writer = pd.ExcelFile('cellphone.xlsx')
-        df.to_excel(writer, sheet_name='Sheet1', index=False)
-        writer.save()
+        # writer = pd.ExcelFile('cellphone.xlsx')
+        df.to_excel('cellphone.xlsx', sheet_name='Sheet1', index=False)
+
     for index, row in df.iterrows():
         ds.insert(index, row)
 def xoa():
+    df = pd.read_excel('cellphone.xlsx')
     ma = nhap2.get()
-    df[df['Mã điện thoại']] != ma
+    #df[df['Mã điện thoại']] != ma
+    df.drop(df.filter(regex='Mã điện thoại'), axis=1)
     df.to_excel('cellphone.xlsx', index=False)
     for index, row in df.iterrows():
         ds.insert(index, row)
