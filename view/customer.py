@@ -17,8 +17,9 @@ def them():
     diachi = ent4.get()
     dienthoai = ent5.get()
     # data1 = {'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]}
-    df1 = pd.DataFrame({'Mã KH':[ma], 'Tên khách hang':[ten], 'Ngày sinh':[bir], 'Gioi tinh':["Nam"], 'Địa chỉ':[diachi], 'Điện thoai':[dienthoai]})
+    df = pd.DataFrame({'Mã KH':[ma], 'Tên khách hang':[ten], 'Ngày sinh':[bir], 'Gioi tinh':["Nam"], 'Địa chỉ':[diachi], 'Điện thoai':[dienthoai]})
     # writer = pd.ExcelWriter('customer.xlsx')
+    df1.append(df)
     df1.to_excel('customer.xlsx', sheet_name="Sheet1", index=False)
     for  row in df1.iterrows():
         sho.insert(END, row)
@@ -51,10 +52,11 @@ def sua():
         sho.insert(index, row)
 def xoa():
     df = pd.read_excel('customer.xlsx')
-    ma = ent1.get()
-    df[df['Mã KH']] != ma
-    df.drop(df.filter(regex='Mã KH'), axis=1)
-    df.to_excel('customer.xlsx', index=False)
+    # ma = ent1.get()
+    # df[df['Mã KH']] != ma
+    # df.drop(df.filter(regex='Mã KH'), axis=1)
+    del df['1']
+    df.to_excel('customer.xlsx', sheet_name='Sheet1', index=False)
     for index, row in df.iterrows():
         sho.insert(index, row)
 def huy():

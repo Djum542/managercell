@@ -19,8 +19,9 @@ def them():
     khachang = ent4.get()
 
     # data1 = {'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]}
-    df1 = pd.DataFrame({'Mã HD':[ma], 'Ngày lập HD':[ngay], 'Nhân viên':[nhanvien], 'Khách hàng':[khachang]})
+    df = pd.DataFrame({'Mã HD':[ma], 'Ngày lập HD':[ngay], 'Nhân viên':[nhanvien], 'Khách hàng':[khachang]})
     # writer = pd.ExcelWriter('bill.xlsx')
+    df1.append(df)
     df1.to_excel('bill.xlsx', sheet_name="Sheet1", index=False)
     for  row in df1.iterrows():
         sho.insert(END, row)

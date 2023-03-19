@@ -17,8 +17,8 @@ def them():
     soluong = chon.get()
     diachi = chon1.get()
     # data1 = {'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]}
-    df1 = pd.DataFrame({'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]})
-
+    df = pd.DataFrame({'Hãng DT':[hang], 'Mã điện thoại':[ma], 'Tên điện thoại':[ten], 'Màu sắc':["Đen"], 'Số Lượng':[soluong], 'Đơn giá':[diachi]})
+    df1.append(df)
     df1.to_excel('cellphone.xlsx', sheet_name="Sheet1", index=False)
     for  row in df1.iterrows():
         ds.insert(END, row)
